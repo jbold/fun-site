@@ -3,24 +3,745 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🐕</title>
+  <title>STYLE://EXPLORER v2.0</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&family=Space+Mono&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --cyber-pink: #ff2a6d;
+      --cyber-blue: #05d9e8;
+      --cyber-purple: #7b2cbf;
+      --cyber-dark: #0d0221;
+      --cyber-grid: #1a1a2e;
+    }
+
     body {
       min-height: 100vh;
+      background: var(--cyber-dark);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* CYBERPUNK BROWSER SHELL */
+    .browser-shell {
+      max-width: 1200px;
+      margin: 40px auto;
+      border: 2px solid var(--cyber-pink);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 
+        0 0 20px rgba(255, 42, 109, 0.3),
+        0 0 60px rgba(5, 217, 232, 0.1),
+        inset 0 0 60px rgba(0,0,0,0.5);
+      background: linear-gradient(135deg, #0d0221 0%, #1a1a2e 100%);
+    }
+
+    /* BROWSER TOP BAR */
+    .browser-top {
+      background: linear-gradient(90deg, #0d0221, #1a1a2e);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--cyber-pink);
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .browser-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .browser-dots span:nth-child(1) { background: #ff5f57; box-shadow: 0 0 8px #ff5f57; }
+    .browser-dots span:nth-child(2) { background: #ffbd2e; box-shadow: 0 0 8px #ffbd2e; }
+    .browser-dots span:nth-child(3) { background: #28ca41; box-shadow: 0 0 8px #28ca41; }
+
+    .browser-url {
+      flex: 1;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--cyber-blue);
+      border-radius: 6px;
+      padding: 8px 16px;
+      color: var(--cyber-blue);
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      text-shadow: 0 0 10px var(--cyber-blue);
+    }
+
+    .browser-title {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--cyber-pink);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-shadow: 0 0 10px var(--cyber-pink);
+    }
+
+    /* TABS */
+    .tabs-container {
+      background: rgba(0,0,0,0.3);
+      padding: 0 16px;
+      border-bottom: 1px solid rgba(255, 42, 109, 0.3);
+      overflow-x: auto;
+      display: flex;
+      gap: 4px;
+    }
+
+    .tab {
+      padding: 12px 20px;
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      position: relative;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    .tab:hover {
+      color: var(--cyber-blue);
+      text-shadow: 0 0 10px var(--cyber-blue);
+    }
+
+    .tab.active {
+      color: var(--cyber-pink);
+      text-shadow: 0 0 10px var(--cyber-pink);
+    }
+
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--cyber-pink);
+      box-shadow: 0 0 10px var(--cyber-pink);
+    }
+
+    /* CONTENT AREA */
+    .content-area {
+      min-height: 500px;
+      position: relative;
+    }
+
+    .style-panel {
+      display: none;
+      padding: 40px;
+      min-height: 500px;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .style-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .gif-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .gif-container img {
+      max-width: 100%;
+      max-height: 400px;
+    }
+
+    /* ============================================
+       STYLE 1: BENTO GRID
+       ============================================ */
+    .bento {
+      background: #f5f5f7;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 200px);
+      gap: 16px;
+      padding: 24px;
+    }
+
+    .bento .main-box {
+      grid-column: 1 / 3;
+      grid-row: 1 / 3;
+      background: #fff;
+      border-radius: 24px;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #0a0a0a;
     }
-    img {
-      max-width: 90vw;
-      max-height: 90vh;
+
+    .bento .side-box {
+      background: #fff;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1d1d1f;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .bento .side-box:nth-child(2) { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+    .bento .side-box:nth-child(3) { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; }
+
+    .bento img { border-radius: 16px; }
+
+    /* ============================================
+       STYLE 2: NEO-BRUTALISM
+       ============================================ */
+    .neo-brutal {
+      background: #ffe156;
+      padding: 24px;
+    }
+
+    .neo-brutal .frame {
+      background: #fff;
+      border: 4px solid #000;
+      box-shadow: 8px 8px 0 #000;
+      padding: 20px;
+    }
+
+    .neo-brutal .title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      font-size: 32px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      background: #ff6b6b;
+      display: inline-block;
+      padding: 8px 16px;
+      border: 3px solid #000;
+    }
+
+    .neo-brutal img {
+      border: 4px solid #000;
+      box-shadow: 6px 6px 0 #000;
+    }
+
+    /* ============================================
+       STYLE 3: SOFT MINIMALISM
+       ============================================ */
+    .soft-minimal {
+      background: #faf9f7;
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    .soft-minimal .frame {
+      background: #fff;
+      border-radius: 32px;
+      padding: 48px;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.04);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .soft-minimal .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #999;
+      margin-bottom: 24px;
+    }
+
+    .soft-minimal img {
+      border-radius: 24px;
+    }
+
+    /* ============================================
+       STYLE 4: 3D + DEPTH
+       ============================================ */
+    .depth-3d {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      padding: 40px;
+      perspective: 1000px;
+    }
+
+    .depth-3d .card-stack {
+      position: relative;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .depth-3d .card-back {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.05);
+      border-radius: 24px;
+      transform: translateZ(-40px) translateY(20px) rotateX(5deg);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .depth-3d .card-main {
+      background: linear-gradient(145deg, #2a2a4a, #1a1a2e);
+      border-radius: 24px;
+      padding: 24px;
+      transform: rotateX(5deg);
+      box-shadow: 
+        0 20px 60px rgba(0,0,0,0.5),
+        0 0 40px rgba(5, 217, 232, 0.1);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .depth-3d img {
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    /* ============================================
+       STYLE 5: AI/AGENTIC
+       ============================================ */
+    .agentic {
+      background: #0a0a0a;
+      padding: 40px;
+    }
+
+    .agentic .terminal {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .agentic .terminal-header {
+      background: #1a1a1a;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #333;
+    }
+
+    .agentic .terminal-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #333;
+    }
+
+    .agentic .terminal-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .agentic .terminal-body {
+      padding: 20px;
+    }
+
+    .agentic .status {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: #4ade80;
+      margin-bottom: 16px;
+    }
+
+    .agentic .status::before {
+      content: '●';
+      margin-right: 8px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .agentic img {
       border-radius: 8px;
+      border: 1px solid #333;
+    }
+
+    /* ============================================
+       STYLE 6: RETRO-FUTURISM
+       ============================================ */
+    .retro-future {
+      background: linear-gradient(180deg, #1a0533 0%, #0d0221 50%, #1a0533 100%);
+      padding: 40px;
+      text-align: center;
+    }
+
+    .retro-future .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.5;
+    }
+
+    .retro-future .orb-1 {
+      width: 200px;
+      height: 200px;
+      background: #ff6b6b;
+      top: 10%;
+      left: 10%;
+    }
+
+    .retro-future .orb-2 {
+      width: 150px;
+      height: 150px;
+      background: #4ecdc4;
+      bottom: 20%;
+      right: 15%;
+    }
+
+    .retro-future .frame {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+      border-radius: 32px;
+      padding: 32px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      max-width: 550px;
+      margin: 0 auto;
+    }
+
+    .retro-future .chrome-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      background: linear-gradient(180deg, #fff 0%, #999 50%, #fff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 24px;
+    }
+
+    .retro-future img {
+      border-radius: 16px;
+      box-shadow: 0 0 40px rgba(255, 107, 107, 0.3);
+    }
+
+    /* ============================================
+       STYLE 7: ORGANIC/FLUID
+       ============================================ */
+    .organic {
+      background: linear-gradient(135deg, #e0f7fa 0%, #f3e5f5 100%);
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .organic .blob {
+      position: absolute;
+      border-radius: 50% 40% 60% 50%;
+      opacity: 0.3;
+    }
+
+    .organic .blob-1 {
+      width: 300px;
+      height: 300px;
+      background: #a5d6a7;
+      top: -100px;
+      left: -100px;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .organic .blob-2 {
+      width: 200px;
+      height: 200px;
+      background: #ce93d8;
+      bottom: -50px;
+      right: -50px;
+      animation: float 6s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(20px, 20px) rotate(10deg); }
+    }
+
+    .organic .frame {
+      position: relative;
+      background: rgba(255,255,255,0.8);
+      border-radius: 60% 40% 50% 50% / 50% 50% 40% 60%;
+      padding: 40px;
+      max-width: 500px;
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    .organic img {
+      border-radius: 40% 60% 50% 50%;
+    }
+
+    /* ============================================
+       STYLE 8: TYPOGRAPHIC MAXIMALISM
+       ============================================ */
+    .type-max {
+      background: #000;
+      padding: 40px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .type-max .big-type {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      font-size: clamp(48px, 15vw, 120px);
+      line-height: 0.9;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      background: linear-gradient(135deg, #fff 0%, #666 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .type-max img {
+      border-radius: 8px;
+      max-height: 300px;
+    }
+
+    .type-max .sub-type {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 8px;
+      color: #666;
+      margin-top: 24px;
+    }
+
+    /* ============================================
+       STYLE 9: SCRAPBOOK/COLLAGE
+       ============================================ */
+    .scrapbook {
+      background: #f5ebe0;
+      padding: 40px;
+      position: relative;
+      min-height: 500px;
+    }
+
+    .scrapbook .tape {
+      position: absolute;
+      width: 80px;
+      height: 30px;
+      background: rgba(255,220,150,0.7);
+      transform: rotate(-5deg);
+    }
+
+    .scrapbook .tape-1 { top: 60px; left: 30%; }
+    .scrapbook .tape-2 { bottom: 80px; right: 25%; transform: rotate(8deg); }
+
+    .scrapbook .main-img {
+      position: relative;
+      max-width: 400px;
+      margin: 40px auto 0;
+      transform: rotate(-2deg);
+      background: #fff;
+      padding: 16px 16px 48px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .scrapbook .main-img::after {
+      content: 'good boy!';
+      position: absolute;
+      bottom: 12px;
+      left: 20px;
+      font-family: 'Comic Sans MS', cursive;
+      font-size: 18px;
+      color: #e63946;
+      transform: rotate(-3deg);
+    }
+
+    .scrapbook .sticker {
+      position: absolute;
+      font-size: 48px;
+    }
+
+    .scrapbook .sticker-1 { top: 20%; right: 15%; transform: rotate(15deg); }
+    .scrapbook .sticker-2 { bottom: 25%; left: 10%; transform: rotate(-10deg); }
+
+    .scrapbook img {
+      display: block;
+      width: 100%;
+    }
+
+    /* FOOTER */
+    .browser-footer {
+      padding: 12px 16px;
+      border-top: 1px solid rgba(255, 42, 109, 0.3);
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .status-light {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #4ade80;
+      border-radius: 50%;
+      margin-right: 8px;
+      box-shadow: 0 0 8px #4ade80;
     }
   </style>
 </head>
 <body>
-  <img src="https://media.giphy.com/media/WvRVq8kiAsWJJUYGON/giphy.gif" alt="boxer on trampoline">
+  <div class="browser-shell">
+    <!-- Browser Top Bar -->
+    <div class="browser-top">
+      <div class="browser-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="browser-url">style://explorer/design-trends/2026</div>
+      <div class="browser-title">Neural Interface v2.0</div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs-container">
+      <button class="tab active" data-style="bento">Bento Grid</button>
+      <button class="tab" data-style="neo-brutal">Neo-Brutal</button>
+      <button class="tab" data-style="soft-minimal">Soft Minimal</button>
+      <button class="tab" data-style="depth-3d">3D Depth</button>
+      <button class="tab" data-style="agentic">AI/Agentic</button>
+      <button class="tab" data-style="retro-future">Retro-Future</button>
+      <button class="tab" data-style="organic">Organic</button>
+      <button class="tab" data-style="type-max">Type Max</button>
+      <button class="tab" data-style="scrapbook">Scrapbook</button>
+    </div>
+
+    <!-- Content Panels -->
+    <div class="content-area">
+      
+      <!-- BENTO GRID -->
+      <div class="style-panel bento active" data-panel="bento">
+        <div class="main-box gif-container">
+          <img src="https://media.giphy.com/media/WvRVq8kiAsWJJUYGON/giphy.gif" alt="boxer">
+        </div>
+        <div class="side-box">Grid</div>
+        <div class="side-box">System</div>
+      </div>
+
+      <!-- NEO-BRUTALISM -->
+      <div class="style-panel neo-brutal" data-panel="neo-brutal">
+        <div class="frame">
+          <div class="title">BOUNCE!</div>
+          <div class="gif-container">
+            <img src="https://media.giphy.com/media/WvRVq8kiAsWJJUYGON/giphy.gif" alt="boxer">
+          </div>
+        </div>
+      </div>
+
+      <!-- SOFT MINIMALISM -->
+      <div class="style-panel soft-minimal" data-panel="soft-minimal">
+        <div class="frame">
+          <div class="label">A moment of joy</div>
+          <div class="gif-container">
+            <img src="https://media.giphy.com/media/WvRVq8kiAsWJJUYGON/giphy.gif" alt="boxer">
+          </div>
+        </div>
+      </div>
+
+      <!-- 3D + DEPTH -->
+      <div class="style-panel depth-3d" data-panel="depth-3d">
+        <div class="card-stack">
+          <div class="card-back"></div>
+          <div class="card-main gif-container">
+            <img src="https://media.giphy.com/media/WvRVq8kiAsWJJUYGON/giphy.gif" alt="boxer">
+          </div>
+        </div>
+      </div>
+
+      <!-- AI/AGENTIC -->
+      <div class="style-panel agentic" data-panel="agentic">
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-title">boxer_trampoline.exe</span>
+          </div>
+          <div class="terminal-body">
+            <div class="status">Process running: infinite_bounce</div>
+            <div class="gif-container">
+              <img src="https://media.giphy.com/media/WvRVq8kiAsWJJUYGON/giphy.gif" alt="boxer">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RETRO-FUTURISM -->
+      <div class="style-panel retro-future" data-panel="retro-future">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="frame">
+          <div class="chrome-text">FUTURE BOUNCE</div>
+          <div class="gif-container">
+            <img src="https://media.giphy.com/media/WvRVq8kiAsWJJUYGON/giphy.gif" alt="boxer">
+          </div>
+        </div>
+      </div>
+
+      <!-- ORGANIC/FLUID -->
+      <div class="style-panel organic" data-panel="organic">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="frame gif-container">
+          <img src="https://media.giphy.com/media/WvRVq8kiAsWJJUYGON/giphy.gif" alt="boxer">
+        </div>
+      </div>
+
+      <!-- TYPOGRAPHIC MAXIMALISM -->
+      <div class="style-panel type-max" data-panel="type-max">
+        <div class="big-type">Bounce</div>
+        <div class="gif-container">
+          <img src="https://media.giphy.com/media/WvRVq8kiAsWJJUYGON/giphy.gif" alt="boxer">
+        </div>
+        <div class="sub-type">Good Boy Energy</div>
+      </div>
+
+      <!-- SCRAPBOOK/COLLAGE -->
+      <div class="style-panel scrapbook" data-panel="scrapbook">
+        <div class="tape tape-1"></div>
+        <div class="tape tape-2"></div>
+        <div class="sticker sticker-1">⭐</div>
+        <div class="sticker sticker-2">🐕</div>
+        <div class="main-img">
+          <img src="https://media.giphy.com/media/WvRVq8kiAsWJJUYGON/giphy.gif" alt="boxer">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="browser-footer">
+      <span><span class="status-light"></span>Connected</span>
+      <span>Kit Industries // 2026</span>
+    </div>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.style-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const style = tab.dataset.style;
+        
+        tabs.forEach(t => t.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        
+        tab.classList.add('active');
+        document.querySelector(`[data-panel="${style}"]`).classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
